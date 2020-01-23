@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SalesWebMVC.Models;
 
 namespace SalesWebMVC.Migrations
 {
     [DbContext(typeof(SalesWebMVCContext))]
-    partial class SalesWebMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20200123172102_DepartmentForeignKey")]
+    partial class DepartmentForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace SalesWebMVC.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartamentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -79,7 +81,7 @@ namespace SalesWebMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
+                    b.HasIndex("DepartamentId");
 
                     b.ToTable("Seller");
                 });
@@ -95,9 +97,7 @@ namespace SalesWebMVC.Migrations
                 {
                     b.HasOne("SalesWebMVC.Models.Department", "Departament")
                         .WithMany("Sellers")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartamentId");
                 });
 #pragma warning restore 612, 618
         }
